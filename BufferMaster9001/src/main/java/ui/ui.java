@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package maqqeworx.buffermaster9001;
+package ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author makke
  */
-public class BufferMaster9001 {
+public class ui {
     
     private static List<String> components;
     private static List<Double> amounts;
