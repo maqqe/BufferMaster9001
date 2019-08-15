@@ -167,6 +167,7 @@ public class BufferMaster9001 {
         }
         
         System.out.println("\n\nThank you for using BufferMaster9001");
+        System.out.println("");
         
         
         
