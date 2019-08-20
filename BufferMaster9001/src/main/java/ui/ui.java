@@ -16,7 +16,7 @@ public class ui {
         Calculator calculator = new Calculator();
         ArrayList<Buffer> buffers = new ArrayList<>();
         
-        
+        // Perhaps add colors to the title?
         
         System.out.println("\n\n\n");
         System.out.println("      ###  #  # #### #### #### ###  ");
@@ -53,7 +53,8 @@ public class ui {
             
             System.out.println("Would you like to...\n");
             System.out.println("(1) create a new buffer");
-            System.out.println("(2) quit the program\n");
+            System.out.println("(2) show created buffers");
+            System.out.println("(3) quit the program\n");
             
             System.out.print("Selection: ");
             String selection = reader.nextLine();
@@ -65,23 +66,52 @@ public class ui {
                 
                 double volume;
                 while (true) {
-                    System.out.println("\nPlease give the final volume for the buffer: ");
+                    System.out.print("\nPlease give the final volume for the buffer (use . as a decimal separator if necessary): ");
                     String volumeAsString = reader.nextLine();
                     if (getPositiveDouble(volumeAsString) > 0) {
                         volume = getPositiveDouble(volumeAsString);
                         break;
                     } else {
-                        
+                        System.out.println("\nIncorrect input.");
                     }
                 }
                 
                 Buffer buffer = new Buffer(name, volume);
                 
                 while (true) {
+                    System.out.println("Would you like to...\n");
+                    System.out.println("(1) add a component by diluting a stock solution");
+                    System.out.println("(2) add a component ");
+                    System.out.println("(3) return to previous menu\n");
+                    System.out.print("Selection: ");
                     
+                    String componentSelection = reader.nextLine();
+                    
+                    if (componentSelection.equals("1")) {
+                        
+                        // Create a new component by diluting a stock solution and add it to the buffer
+                        
+                    } else if (componentSelection.equals("2")) {
+                        
+                        // Create a new component by asking for molar mass and final concentration. Calculate required mass. Add to buffer.
+                        
+                    } else if (componentSelection.equals("3")) {
+                        
+                        break;
+                        
+                    } else {
+                        
+                        System.out.println("\nIncorrect input.");
+                        
+                    }
                 }
                 
             } else if (selection.equals("2")) {
+                
+                //prints buffer list
+                
+                
+            } else if (selection.equals("3")) {
                 break;
             } else {
                 System.out.println("Incorrect input.\n");

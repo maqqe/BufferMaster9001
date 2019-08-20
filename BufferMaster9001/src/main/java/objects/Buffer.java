@@ -16,11 +16,11 @@ public class Buffer extends NamedObject {
         this.components = new ArrayList<>();
     }
     
-    public void addToList(String component) {
+    public void addComponent(String component) {
         this.components.add(component);
     }
     
-    public List<String> getComponentList() {
+    public List<String> getComponents() {
         return this.components;
     }
     
