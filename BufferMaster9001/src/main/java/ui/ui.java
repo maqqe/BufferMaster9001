@@ -1,35 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ui;
 
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
-import java.util.List;
+import objects.Buffer;
+import objects.Calculator;
 
 
-
-
-/**
- *
- * @author makke
- */
 public class ui {
     
-    private static List<String> components;
-    private static List<Double> amounts;
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         
-        components = new ArrayList<>();
-        amounts = new ArrayList<>();
-        
         Scanner reader = new Scanner(System.in);
+        Calculator calculator = new Calculator();
+        ArrayList<Buffer> buffers = new ArrayList<>();
+        
         
         
         System.out.println("\n\n\n");
@@ -59,112 +45,54 @@ public class ui {
         System.out.println("\n\n\n");
         
         
-        int finalVolume = 0;
-        int volumeRemaining = 0;
         
-        System.out.print("Please give a name for your buffer: ");
-        String bufferName = reader.nextLine();
         
+        System.out.println("Welcome to BufferMaster9001!\n");
         
         while (true) {
-            System.out.print("\nPlease give the final volume of your buffer in ml: ");
-            String input = reader.nextLine();
-            if (isPositiveInteger(input)) {
-                finalVolume = Integer.parseInt(input);
-                volumeRemaining = finalVolume;
-                break;
-            } else {
-                System.out.println("Incorrect input.");
-            }
-        }
-        
-        while (true) {
-            System.out.println("\nWould you like to\n");
-            System.out.println("(1) Add a component by diluting a stock solution");
-            System.out.println("(2) Add a solid component");
-            System.out.println("(q) Quit and show summary if possible\n");
+            
+            System.out.println("Would you like to...\n");
+            System.out.println("(1) create a new buffer");
+            System.out.println("(2) quit the program\n");
+            
             System.out.print("Selection: ");
             String selection = reader.nextLine();
-            System.out.println("");
             
             if (selection.equals("1")) {
-                double initialConcentration = 0;
-                double finalConcentration = 0;
                 
-                System.out.print("Please give the name of the component: ");
-                String componentName = reader.nextLine();
+                System.out.print("\nPlease name buffer: ");
+                String name = reader.nextLine();
                 
-                
-                System.out.print("\nPlease give the concentration of the stock solution in millimolar (mM): ");
-                initialConcentration = readDouble(reader);
-                System.out.println("");
-                
-                System.out.print("Please give the final concentration of the component in the buffer in millimolar (mM): ");
-                finalConcentration = readDouble(reader);
-                readString(reader);
-                System.out.println("");
-                
-                double volumeToAdd = calculateVolume(finalVolume, initialConcentration, finalConcentration);
-                
-                if (volumeToAdd < volumeRemaining) {
-                    volumeRemaining -= volumeToAdd;
-                    amounts.add(volumeToAdd);
-                    components.add(componentName);
-                    System.out.println("The volume of stock solution you need to add is: " + volumeToAdd + " ml");
-                } else {
-                    System.out.println("There is not enough volume left in the buffer for this addition.");
+                double volume;
+                while (true) {
+                    System.out.println("\nPlease give the final volume for the buffer: ");
+                    String volumeAsString = reader.nextLine();
+                    if (getPositiveDouble(volumeAsString) > 0) {
+                        volume = getPositiveDouble(volumeAsString);
+                        break;
+                    } else {
+                        
+                    }
                 }
                 
+                Buffer buffer = new Buffer(name, volume);
+                
+                while (true) {
+                    
+                }
                 
             } else if (selection.equals("2")) {
-                double molarMass = 0;
-                double finalConcentration = 0;
-                
-                System.out.print("Please give the name of the component: ");
-                String componentName = reader.nextLine();
-                components.add(componentName);
-                
-                System.out.print("\nPlease give the molar mass of the component in grams per mole: ");
-                molarMass = readDouble(reader);
-                
-                System.out.println("");
-                
-                System.out.print("Please give the final concentration of the component in the buffer in millimolar (mM): ");
-                finalConcentration = readDouble(reader);
-                readString(reader);
-                System.out.println("");
-                
-                
-                
-                double massToAdd = calculateMass(finalVolume, molarMass, finalConcentration);
-                amounts.add(massToAdd);
-                System.out.println("The mass of component you need to add is: " + massToAdd + " g");
-                
-                
-            } else if (selection.equals("q")) {
                 break;
-            } else if (selection.equals("x")) {
-                
-                readDouble(reader);
-                System.out.println("");
-                System.out.println(readString(reader));
-                
+            } else {
+                System.out.println("Incorrect input.\n");
             }
+            
             
         }
         
-        if (!components.isEmpty()) {
-            System.out.println("\nSummary\n");
-            System.out.println("Buffer name: " + bufferName);
-            System.out.println("\nComponents\n");
         
-            for (int x = 0; x < components.size(); x++) {
-                System.out.println(components.get(x) + " " + amounts.get(x));
-            }
-            System.out.println("Water " + volumeRemaining);
-            System.out.println("-----------------------------\n"
-                    + "Total " + finalVolume);
-        }
+        
+        
         
         System.out.println("\n\nThank you for using BufferMaster9001");
         System.out.println("");
@@ -219,6 +147,21 @@ public class ui {
         String value = reader.nextLine();
 //        
         return value;
+    }
+    
+    public static double getPositiveDouble(String input) {
+        
+        try {
+            double d = Double.parseDouble(input);
+            if (d > 0) {
+                return d;
+            } else {
+                System.out.println("The input value needs to be greater than 0.");
+            }
+        } catch (Exception e) {
+            System.out.println("Incorrect input.");
+        }
+        return 0;
     }
     
 }
